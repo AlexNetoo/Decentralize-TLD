@@ -34,6 +34,9 @@
     --search-btn-width: 20%;
     --form-element-padding: 16px 16px 16px 24px;
     --border: 1px solid var(--border-color);
+
+    /* Transitions */
+    --transition-regular: all 0.15s linear;
 }
 
 * {
@@ -41,6 +44,7 @@
     padding: 0;
     box-sizing: border-box;
     outline: none;
+    transition: var(--transition-regular);
 }
 
 body {
@@ -86,6 +90,10 @@ button {
     font-size: var(--font-size-regular);
     font-weight: var(--font-weight-medium);
     cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
 }
 
 .container {
