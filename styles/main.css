@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0');
 
 :root {
     /* Font */
@@ -18,6 +19,7 @@
     --font-weight-black: 900;
 
     /* Colors */
+    --color-white: #ffffff;
     --color-dark: #010101;
     --color-grey-light: #f5f5f5;
     --color-grey: #fafafa;
@@ -36,6 +38,7 @@
     --border: 1px solid var(--border-color);
 
     /* Transitions */
+    --transition-fast: all 0.1s linear;
     --transition-regular: all 0.15s linear;
 }
 
@@ -125,20 +128,24 @@ button:disabled {
 
 .search-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     width: 100%;
-    height: 56px;
 }
 
-.search-container .input {
+.search-bar-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-bar-container .input {
     border-radius: 60px 0 0 60px;
     border-width: 1px 0 1px 1px;
     width: var(--search-input-width);
     height: 56px;
 }
 
-.search-container .btn {
+.search-bar-container .btn {
     background-color: var(--color-grey-light);
     border: var(--border);
     border-radius: 0 60px 60px 0;
@@ -147,6 +154,41 @@ button:disabled {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.search-bar-container .btn .btn-icon {
+    margin-left: 16px;
+}
+
+.search-dropdown-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 5px;
+    transition: var(--transition-fast);
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.dropdown {
+    position: absolute;
+    background-color: var(--color-white);
+    border: var(--border);
+    width: var(--search-btn-width);
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.dropdown .dropdown-option {
+    cursor: pointer;
+    padding: 8px;
+}
+
+.dropdown-option:hover {
+    background-color: var(--color-grey-light);
 }
 
 /* Responsive */

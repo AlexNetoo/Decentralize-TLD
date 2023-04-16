@@ -1,7 +1,18 @@
 const domainSearchInput = document.querySelector('#domainSearchInput');
 const domainSearchBtn = document.querySelector('#domainSearchBtn');
-const porkbunBaseUrl = 'https://porkbun.com/tld/reach?q=';
+const tldDropdownContainer = document.querySelector('#tldDropdownContainer');
+const tldDropdown = document.querySelector('#tldDropdown');
+const porkbunBaseUrl = 'https://porkbun.com/checkout/search?q=';
 let searchValue = null;
+const tldDropdownOptions = [
+    '.aca',
+    '.blogging',
+    '.fl3x',
+    '.giveaways',
+    '.reach',
+    '.researcher',
+    '.samples',
+];
 
 /**
  * Listens to `keyup` event of domain search input.
@@ -20,42 +31,67 @@ function listenToSearchInputValue() {
 
         // Disable button if search value is not valid, otherwise enable it
         domainSearchBtn.disabled = !isSearchValid;
-
-        handleKeyPressOnSearchInput(event.key, isSearchValid);
     });
 }
 
 /**
- * Checks if `Enter` key was pressed on input.
+ * Redirects to porkbun's website with formatted domain name in the query params.
  *
- * If the search value is valid, it will redirect to porkbun.
- *
- * @param {string} eventKey
- * @param {boolean} isSearchValid
+ * @param {string} tldName
  */
-function handleKeyPressOnSearchInput(eventKey, isSearchValid) {
-    if (eventKey === 'Enter' && isSearchValid) {
-        redirectToPorkbun();
+function redirectToPorkbun(tldName) {
+    if (!searchValue || !tldName) {
+        return;
     }
+
+    const formattedDomain = `${searchValue}${tldName}`;
+
+    window.open(`${porkbunBaseUrl}${formattedDomain}`);
 }
 
 /**
- * Redirects to porkbun's website with search value in the query params.
+ * Checks if cursor is over the domain button or dropdown to handle the latter's visibility logic.
  */
-function redirectToPorkbun() {
-    window.open(`${porkbunBaseUrl}${searchValue}`);
+function handleTLDDropdownVisibility() {
+    // Shows dropdown when hovering over domain button
+    domainSearchBtn.addEventListener('mouseover', () => {
+        tldDropdownContainer.classList.remove('hidden');
+    });
+
+    // Hides dropdown when mouse leaves domain button
+    domainSearchBtn.addEventListener('mouseleave', () => {
+        tldDropdownContainer.classList.add('hidden');
+    });
+
+    // Shows dropdown when hovering over TLD dropdown
+    tldDropdownContainer.addEventListener('mouseover', () => {
+        tldDropdownContainer.classList.remove('hidden');
+    });
+
+    // Hides dropdown when mouse leaves TLD dropdown
+    tldDropdownContainer.addEventListener('mouseleave', () => {
+        tldDropdownContainer.classList.add('hidden');
+    });
 }
 
 /**
- * Listens to `click` event of domain search button.
- *
- * When clicked, it will redirect to porkbun.
+ * Adds options to TLD dropdown.
  */
-function listenToSearchButtonClick() {
-    domainSearchBtn.addEventListener('click', () => {
-        redirectToPorkbun();
+function createTLDDropdownOptions() {
+    tldDropdownOptions.forEach((option) => {
+        const dropdownElement = document.createElement('div');
+
+        dropdownElement.classList.add('dropdown-option');
+        dropdownElement.appendChild(document.createTextNode(option));
+
+        dropdownElement.addEventListener('click', () => {
+            redirectToPorkbun(option);
+        });
+
+        tldDropdown.appendChild(dropdownElement);
     });
 }
 
 listenToSearchInputValue();
-listenToSearchButtonClick();
+createTLDDropdownOptions();
+handleTLDDropdownVisibility();

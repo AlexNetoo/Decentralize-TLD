@@ -19,15 +19,22 @@
                 </div>
 
                 <div class="search-container">
-                    <input
-                        type="text"
-                        id="domainSearchInput"
-                        placeholder="domain search"
-                        class="input"
-                    />
-                    <button type="button" id="domainSearchBtn" disabled class="btn">
-                        .reach
-                    </button>
+                    <div class="search-bar-container">
+                        <input
+                            type="text"
+                            id="domainSearchInput"
+                            placeholder="domain search"
+                            class="input"
+                        />
+                        <button type="button" id="domainSearchBtn" disabled class="btn">
+                            .reach
+                            <span class="material-symbols-outlined btn-icon">expand_more</span>
+                        </button>
+                    </div>
+
+                    <div id="tldDropdownContainer" class="search-dropdown-container hidden">
+                        <div id="tldDropdown" class="dropdown"></div>
+                    </div>
                 </div>
             </div>
         </main>
